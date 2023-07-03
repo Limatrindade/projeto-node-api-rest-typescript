@@ -1,9 +1,10 @@
 import express from 'express';
+import 'dotenv/config';
+import { router } from './routes';
 
 const server = express();
 
-server.get('/', (_, res) => {
-  res.send('ola dev');
-});
+server.use(router);
+server.use(express.json());
 
 export { server };
