@@ -4,19 +4,18 @@ import * as yup from 'yup';
 
 import { validation } from '../../shared/middlewares';
 
-
 interface IQueryProps {
   page?: number;
   limit?: number;
   filter?: string;
 }
-export const getAllValidation = validation((getSchema) => (
-  {
-    query: getSchema<IQueryProps>(yup.object().shape({
-      page: yup.number().notRequired().moreThan(0),
-      limit: yup.number().notRequired().moreThan(0),
-      filter: yup.string().notRequired(),
-  })),
+
+export const getAllValidation = validation((getSchema: any) => ({
+  query: getSchema(yup.object().shape({
+    page: yup.number().notRequired().moreThan(0),
+    limit: yup.number().notRequired().moreThan(0),
+    filter: yup.string().notRequired(),
+  }).defined()),
 }));
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
