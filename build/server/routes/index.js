@@ -2,10 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = require("express");
-const http_status_codes_1 = require("http-status-codes");
+// import { StatusCodes } from 'http-status-codes';
+const controllers_1 = require("../controllers");
 const router = (0, express_1.Router)();
 exports.router = router;
-router.post('/teste', (req, res) => {
-    console.log(req.body);
-    return res.status(http_status_codes_1.StatusCodes.UNAUTHORIZED).json(req.body);
+router.get('/', (_, res) => {
+    return res.send('Olá, DEV!');
 });
+router.get('/cidades', controllers_1.CidadesController.getAllValidation, controllers_1.CidadesController.getAll);
+router.get('/cidades/:id', controllers_1.CidadesController.getByIdValidation, controllers_1.CidadesController.getById);
+router.put('/cidades/:id', controllers_1.CidadesController.updateByIdValidation, controllers_1.CidadesController.updateById);
+router.post('/cidades', controllers_1.CidadesController.createValidation, controllers_1.CidadesController.create);
+router.delete('/cidades/:id', controllers_1.CidadesController.deleteByIdValidation, controllers_1.CidadesController.deleteById);
